@@ -1,8 +1,8 @@
 # Configuración de la IPTV de Movistar Plus usando OpenWrt 23.05
 ## Hardware usado:
 * Sustituyo el router proporcionado por Telefónica, Askey RTF3505VW (HGU) por:
- * ONT: Huawei EchoLife HG8010H
- * Router: GL-iNet Convexa-B (GL-B1300). Cuenta con un puerto WAN y dos puertos LAN
+  * ONT: Huawei EchoLife HG8010H
+  * Router: GL-iNet Convexa-B (GL-B1300). Cuenta con un puerto WAN y dos puertos LAN
 * Decodificador ARRIS-VIP5342 proporcionado por Telefónica
 
 Antes de cambiar el equipo de Telefónica hay que obtener de la configuración avanzada del router Askey la configuración de IP de la IPTV (IP fija asignada a cada cliente) y el ID ONT.
@@ -38,14 +38,15 @@ Dejo como está todo y añado lo que sigue al final:
 * Configuro dos reglas adicionales tipo 'input'; lo debería hacer el script de 'igmpproxy', pero parece que está incompleto
 ### Configuración de DHCP y DNS: 
 `nano /etc/config/dhcp`
-* En 'dhcp lan' cambio el límite a 100
+* En 'dhcp lan' cambio el límite a 100 y quito las opciones relacionadas con IPv6
 * Añado la etiqueta 'tag decotv' con las opciones para DHCP del decodificador ARRIS copiadas de las del router Askey
 * Creo un 'host' para el decodificador ARRIS con IP fija 192.168.1.200; para saber la MAC del deco hay que encenderlo y verla en la página principal de Luci o ejecutando la orden `arp` en el shell de nuestra sesión ssh
 * Se pueden tener otros dos decodificadores usando las direcciones siguientes 101 y 102, aunque esto no lo he probado
 ### Configuración del proxy del protocolo IGMP: 
 `nano /etc/config/igmpproxy`
 * Se sustituye el ejemplo por el archivo que figura aquí
-### Referencias
+### Referencias:
 * IPTV / UDP multicast: https://openwrt.org/docs/guide-user/network/wan/udp_multicast
+* IPTV, IGMPProxy and Firewall issues: https://forum.openwrt.org/t/solved-iptv-igmpproxy-and-firewall-issues/12890
 * Configurar un router con OpenWrt para Movistar manteniendo Internet, VoIP e IPTV: https://bandaancha.eu/foros/configurar-openwrt-movistar-internet-1742525
-* Aquí empezó todo: [Tutorial] Movistar FTTH con OpenWrt (VOIP e Imagenio): https://foro.seguridadwireless.net/openwrt/(tutorial)-movistar-ftth-con-openwrt-(voip-e-imagenio)
+* Aquí empezó todo: Movistar FTTH con OpenWrt (VOIP e Imagenio): https://foro.seguridadwireless.net/openwrt/(tutorial)-movistar-ftth-con-openwrt-(voip-e-imagenio)
